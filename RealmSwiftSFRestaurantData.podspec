@@ -8,7 +8,7 @@ Prebuilt Realm dataset composed of San Francisco restaurant scores for Realm Swi
   s.homepage     = "https://github.com/bigfish24/RealmSwiftSFRestaurantData"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = { "Adam Fish" => "af@realm.io" }
-  s.ios.deployment_target = "7.0"
+  s.ios.deployment_target = "8.0"
   s.osx.deployment_target = "10.9"
   s.source       = { :git => "https://github.com/bigfish24/RealmSwiftSFRestaurantData.git", :tag => "v#{s.version}" }
   s.source_files  = "SFRestaurantScores.swift"

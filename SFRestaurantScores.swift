@@ -35,7 +35,7 @@ public class ABFRestaurantObject: Object {
     dynamic var phoneNumber = ""
     dynamic var violations = List<ABFViolationObject>()
     dynamic var inspections = List<ABFInspectionObject>()
-
+    
     override public static func primaryKey() -> String? {
         return "businessId"
     }
@@ -70,21 +70,21 @@ Retrieve the path for a given file name in the documents directory
 public func ABFDocumentFilePathWithName(fileName: String) -> String {
     #if os(iOS)
         let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
-    #else
+        #else
         var path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.ApplicationSupportDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
         
         if (NSProcessInfo.processInfo().environment["APP_SANDBOX_CONTAINER_ID"] == nil) {
-        
-        var identifier = NSBundle.mainBundle().bundleIdentifier
-        
-        if !identifier {
-        identifier = NSBundle.mainBundle().executablePath?.lastPathComponent
-        }
-        
-        path = path.stringByAppendingPathComponent(identifier)
-        
-        NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: nil)
-        
+            
+            var identifier = NSBundle.mainBundle().bundleIdentifier
+            
+            if (identifier == nil) {
+                identifier = NSBundle.mainBundle().executablePath?.lastPathComponent
+            }
+            
+            path = path.stringByAppendingPathComponent(identifier!)
+            
+            NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: nil)
+            
         }
     #endif
     
