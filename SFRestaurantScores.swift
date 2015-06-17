@@ -102,7 +102,7 @@ public func ABFRestaurantScoresPath() -> String {
     
     if (!NSFileManager.defaultManager().fileExistsAtPath(fileInDocuments)) {
         
-        let fileInBundle = NSBundle.mainBundle().pathForResource("SFRestaurantScores", ofType: "realm")
+        let fileInBundle = NSBundle(forClass: ABFRestaurantObject.self).pathForResource("SFRestaurantScores", ofType: "realm")
         
         var error: NSError?
         
