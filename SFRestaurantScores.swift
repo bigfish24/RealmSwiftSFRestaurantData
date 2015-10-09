@@ -33,8 +33,8 @@ public class ABFRestaurantObject: Object {
     public dynamic var latitude: Double = 37.7859547
     public dynamic var longitude: Double = -122.4024658
     public dynamic var phoneNumber = ""
-    public dynamic var violations = List<ABFViolationObject>()
-    public dynamic var inspections = List<ABFInspectionObject>()
+    public let violations = List<ABFViolationObject>()
+    public let inspections = List<ABFInspectionObject>()
     
     override public static func primaryKey() -> String? {
         return "businessId"
@@ -69,9 +69,9 @@ Retrieve the path for a given file name in the documents directory
 */
 public func ABFDocumentFilePathWithName(fileName: String) -> String {
     #if os(iOS)
-        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
+        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! NSString
         #else
-        var path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.ApplicationSupportDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
+        var path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.ApplicationSupportDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! NSString
         
         if (NSProcessInfo.processInfo().environment["APP_SANDBOX_CONTAINER_ID"] == nil) {
             
