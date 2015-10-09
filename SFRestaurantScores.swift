@@ -83,8 +83,7 @@ public func ABFDocumentFilePathWithName(fileName: String) -> String {
             
             path = path.stringByAppendingPathComponent(identifier!)
             
-            NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
-            
+            try! NSFileManager.defaultManager().createDirectoryAtPath((path as String), withIntermediateDirectories: true, attributes: nil)
         }
     #endif
     
