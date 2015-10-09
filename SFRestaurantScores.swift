@@ -47,7 +47,7 @@ public class ABFRestaurantObject: Object {
 public class ABFInspectionObject: Object {
     public dynamic var restaurant: ABFRestaurantObject?
     public dynamic var score = 0
-    public dynamic var date = NSDate.distantPast() as! NSDate
+    public dynamic var date = NSDate.distantPast()
     public dynamic var type = 0
 }
 
@@ -56,7 +56,7 @@ public class ABFInspectionObject: Object {
 */
 public class ABFViolationObject: Object {
     public dynamic var restaurant: ABFRestaurantObject?
-    public dynamic var date = NSDate.distantPast() as! NSDate
+    public dynamic var date = NSDate.distantPast()
     public dynamic var violationDescription = ""
 }
 
@@ -69,21 +69,21 @@ Retrieve the path for a given file name in the documents directory
 */
 public func ABFDocumentFilePathWithName(fileName: String) -> String {
     #if os(iOS)
-        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! NSString
+        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
         #else
-        var path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.ApplicationSupportDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! NSString
+        var path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.ApplicationSupportDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
         
         if (NSProcessInfo.processInfo().environment["APP_SANDBOX_CONTAINER_ID"] == nil) {
             
             var identifier = NSBundle.mainBundle().bundleIdentifier
             
             if (identifier == nil) {
-                identifier = NSBundle.mainBundle().executablePath?.lastPathComponent
+                identifier = (NSBundle.mainBundle().executablePath! as NSString).lastPathComponent
             }
             
             path = path.stringByAppendingPathComponent(identifier!)
             
-            NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: nil)
+            NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
             
         }
     #endif
@@ -104,18 +104,18 @@ public func ABFRestaurantScoresPath() -> String {
         
         let fileInBundle = NSBundle(forClass: ABFRestaurantObject.self).pathForResource("SFRestaurantScores", ofType: "realm")
         
-        var error: NSError?
-        
         let fileManager = NSFileManager.defaultManager()
         
-        if (!fileManager.copyItemAtPath(fileInBundle!, toPath: fileInDocuments, error: &error)) {
-            println("Copy File Error: \(error!.description)")
-            
-            error = nil
+        do {
+            try fileManager.copyItemAtPath(fileInBundle!, toPath: fileInDocuments)
+        } catch {
+            print("Copy File Error: \(error)")
         }
         
-        if (!fileManager.setAttributes([NSFilePosixPermissions : 0o644], ofItemAtPath: fileInDocuments, error: &error)) {
-            println("File Permission Error: \(error!.description)")
+        do {
+            try fileManager.setAttributes([NSFilePosixPermissions : 0o644], ofItemAtPath: fileInDocuments)
+        } catch {
+            print("File Permission Error: \(error)")
         }
     }
     
