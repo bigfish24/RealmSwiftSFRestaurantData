@@ -24,17 +24,17 @@ enum ABFInspectionType: Int {
 *  Model for a restaurant in San Francisco
 */
 public class ABFRestaurantObject: Object {
-    dynamic var businessId = ""
-    dynamic var name = ""
-    dynamic var address = ""
-    dynamic var city = ""
-    dynamic var state = ""
-    dynamic var postalCode = ""
-    dynamic var latitude: Double = 37.7859547
-    dynamic var longitude: Double = -122.4024658
-    dynamic var phoneNumber = ""
-    dynamic var violations = List<ABFViolationObject>()
-    dynamic var inspections = List<ABFInspectionObject>()
+    public dynamic var businessId = ""
+    public dynamic var name = ""
+    public dynamic var address = ""
+    public dynamic var city = ""
+    public dynamic var state = ""
+    public dynamic var postalCode = ""
+    public dynamic var latitude: Double = 37.7859547
+    public dynamic var longitude: Double = -122.4024658
+    public dynamic var phoneNumber = ""
+    public dynamic var violations = List<ABFViolationObject>()
+    public dynamic var inspections = List<ABFInspectionObject>()
     
     override public static func primaryKey() -> String? {
         return "businessId"
@@ -45,19 +45,19 @@ public class ABFRestaurantObject: Object {
 *  Model for an inspection at a restaurant
 */
 public class ABFInspectionObject: Object {
-    dynamic var restaurant: ABFRestaurantObject?
-    dynamic var score = 0
-    dynamic var date = NSDate.distantPast() as! NSDate
-    dynamic var type = 0
+    public dynamic var restaurant: ABFRestaurantObject?
+    public dynamic var score = 0
+    public dynamic var date = NSDate.distantPast() as! NSDate
+    public dynamic var type = 0
 }
 
 /**
 *  Model for a violation at a restaurant
 */
 public class ABFViolationObject: Object {
-    dynamic var restaurant: ABFRestaurantObject?
-    dynamic var date = NSDate.distantPast() as! NSDate
-    dynamic var violationDescription = ""
+    public dynamic var restaurant: ABFRestaurantObject?
+    public dynamic var date = NSDate.distantPast() as! NSDate
+    public dynamic var violationDescription = ""
 }
 
 /**
