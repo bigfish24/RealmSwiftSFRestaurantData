@@ -21,18 +21,18 @@ enum ABFInspectionType: Int {
 }
 
 /**
-*  Model for a restaurant in San Francisco
-*/
+ *  Model for a restaurant in San Francisco
+ */
 public class ABFRestaurantObject: Object {
-    public dynamic var businessId = ""
-    public dynamic var name = ""
-    public dynamic var address = ""
-    public dynamic var city = ""
-    public dynamic var state = ""
-    public dynamic var postalCode = ""
+    public dynamic var businessId: String?
+    public dynamic var name: String?
+    public dynamic var address: String?
+    public dynamic var city: String?
+    public dynamic var state: String?
+    public dynamic var postalCode: String?
     public dynamic var latitude: Double = 37.7859547
     public dynamic var longitude: Double = -122.4024658
-    public dynamic var phoneNumber = ""
+    public dynamic var phoneNumber: String?
     public let violations = List<ABFViolationObject>()
     public let inspections = List<ABFInspectionObject>()
     
@@ -42,22 +42,22 @@ public class ABFRestaurantObject: Object {
 }
 
 /**
-*  Model for an inspection at a restaurant
-*/
+ *  Model for an inspection at a restaurant
+ */
 public class ABFInspectionObject: Object {
     public dynamic var restaurant: ABFRestaurantObject?
     public dynamic var score = 0
-    public dynamic var date = NSDate.distantPast()
+    public dynamic var date: NSDate?
     public dynamic var type = 0
 }
 
 /**
-*  Model for a violation at a restaurant
-*/
+ *  Model for a violation at a restaurant
+ */
 public class ABFViolationObject: Object {
     public dynamic var restaurant: ABFRestaurantObject?
-    public dynamic var date = NSDate.distantPast()
-    public dynamic var violationDescription = ""
+    public dynamic var date: NSDate?
+    public dynamic var violationDescription: String?
 }
 
 /**
