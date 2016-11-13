@@ -69,25 +69,25 @@ Retrieve the path for a given file name in the documents directory
 */
 public func ABFDocumentFilePathWithName(fileName: String) -> String {
     #if os(iOS)
-        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
-        #else
-        var path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.ApplicationSupportDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
+        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] as NSString
+    #else
+        var path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.applicationSupportDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] as NSString
         
-        if (NSProcessInfo.processInfo().environment["APP_SANDBOX_CONTAINER_ID"] == nil) {
+        if (ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"] == nil) {
             
-            var identifier = NSBundle.mainBundle().bundleIdentifier
+            var identifier = Bundle.main.bundleIdentifier
             
             if (identifier == nil) {
-                identifier = (NSBundle.mainBundle().executablePath! as NSString).lastPathComponent
+                identifier = (Bundle.main.executablePath! as NSString).lastPathComponent
             }
             
-            path = path.stringByAppendingPathComponent(identifier!)
+            path = path.appendingPathComponent(identifier!) as NSString
             
-            try! NSFileManager.defaultManager().createDirectoryAtPath((path as String), withIntermediateDirectories: true, attributes: nil)
+            try! FileManager.default.createDirectory(atPath: (path as String), withIntermediateDirectories: true, attributes: nil)
         }
     #endif
     
-    return path.stringByAppendingPathComponent(fileName)
+    return path.appendingPathComponent(fileName)
 }
 
 /**
@@ -97,22 +97,22 @@ Retrieve the path for the prebuilt SFRestaurantScores Realm file
 */
 public func ABFRestaurantScoresPath() -> String {
     
-    let fileInDocuments = ABFDocumentFilePathWithName("SFRestaurantScores.realm")
+    let fileInDocuments = ABFDocumentFilePathWithName(fileName: "SFRestaurantScores.realm")
     
-    if (!NSFileManager.defaultManager().fileExistsAtPath(fileInDocuments)) {
+    if (!FileManager.default.fileExists(atPath: fileInDocuments)) {
         
-        let fileInBundle = NSBundle(forClass: ABFRestaurantObject.self).pathForResource("SFRestaurantScores", ofType: "realm")
+        let fileInBundle = Bundle(for: ABFRestaurantObject.self).path(forResource: "SFRestaurantScores", ofType: "realm")
         
-        let fileManager = NSFileManager.defaultManager()
+        let fileManager = FileManager.default
         
         do {
-            try fileManager.copyItemAtPath(fileInBundle!, toPath: fileInDocuments)
+            try fileManager.copyItem(atPath: fileInBundle!, toPath: fileInDocuments)
         } catch {
             print("Copy File Error: \(error)")
         }
         
         do {
-            try fileManager.setAttributes([NSFilePosixPermissions : 0o644], ofItemAtPath: fileInDocuments)
+            try fileManager.setAttributes([FileAttributeKey.posixPermissions : 0o644], ofItemAtPath: fileInDocuments)
         } catch {
             print("File Permission Error: \(error)")
         }
