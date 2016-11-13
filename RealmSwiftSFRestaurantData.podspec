@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RealmSwiftSFRestaurantData"
-  s.version      = "0.4.1"
+  s.version      = “0.5”
   s.summary      = "San Francisco Restaurant Score Data In Realm"
   s.description  = <<-DESC
 Prebuilt Realm dataset composed of San Francisco restaurant scores for Realm Swift
