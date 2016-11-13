@@ -69,8 +69,8 @@ Retrieve the path for a given file name in the documents directory
 */
 public func ABFDocumentFilePathWithName(fileName: String) -> String {
     #if os(iOS)
-        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
-        #else
+        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] as NSString
+    #else
         var path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.applicationSupportDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] as NSString
         
         if (ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"] == nil) {
